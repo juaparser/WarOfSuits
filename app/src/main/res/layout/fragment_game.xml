@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="892dp"
+        android:layout_height="759dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/poker"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteX="-248dp"
+        tools:layout_editor_absoluteY="-5dp" />
+
+
+
+    <ImageView
+        android:id="@+id/deckPlayer2"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/playableCardPlayer2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/reverse2"/>
+
+    <ImageView
+        android:id="@+id/playableCardPlayer2"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:visibility="invisible"
+        android:layout_marginTop="76dp"
+        app:layout_constraintStart_toEndOf="@id/deckPlayer2"
+        app:layout_constraintEnd_toStartOf="@id/discardDeckPlayer2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/two_clubs"/>
+
+    <ImageView
+        android:id="@+id/discardDeckPlayer2"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playableCardPlayer2"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/reverse2"/>
+
+
+    <ImageView
+        android:id="@+id/deckPlayer1"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/playableCardPlayer1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/reverse1"/>
+
+    <ImageView
+        android:id="@+id/playableCardPlayer1"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:visibility="invisible"
+        android:layout_marginBottom="76dp"
+        app:layout_constraintStart_toEndOf="@id/deckPlayer1"
+        app:layout_constraintEnd_toStartOf="@id/discardDeckPlayer1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/two_clubs"/>
+
+    <ImageView
+        android:id="@+id/discardDeckPlayer1"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playableCardPlayer1"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/reverse1"/>
+
+    <View
+        android:id="@+id/bgStart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationZ="1dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Start game"/>
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_overlay_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="bgStart, start" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

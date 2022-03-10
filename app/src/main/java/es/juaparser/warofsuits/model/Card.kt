@@ -1,5 +1,9 @@
 package es.juaparser.warofsuits.model
 
+import android.content.Context
+import android.graphics.drawable.Drawable
+import es.juaparser.warofsuits.R
+
 /*
 * Modelo issue, almacenará la información de todos los issues del tablero kanban asociado a un repo
 *   title: String con el título del issue
@@ -14,7 +18,83 @@ data class Card(
     var suit: String
 )
 
-
+fun Card.getDrawable(): Int {
+    return when (this.suit) {
+        "diamonds" -> {
+            when (this.value) {
+                "2" -> R.drawable.two_diamonds
+                "3" -> R.drawable.three_diamonds
+                "4" -> R.drawable.four_diamonds
+                "5" -> R.drawable.five_diamonds
+                "6" -> R.drawable.six_diamonds
+                "7" -> R.drawable.seven_diamonds
+                "8" -> R.drawable.eight_diamonds
+                "9" -> R.drawable.nine_diamonds
+                "10" -> R.drawable.ten_diamonds
+                "J" -> R.drawable.j_diamonds
+                "Q" -> R.drawable.q_diamonds
+                "K" -> R.drawable.k_diamonds
+                "A" -> R.drawable.a_diamonds
+                else -> R.drawable.reverse1
+            }
+        }
+        "clubs" -> {
+            when (this.value) {
+                "2" -> R.drawable.two_clubs
+                "3" -> R.drawable.three_clubs
+                "4" -> R.drawable.four_clubs
+                "5" -> R.drawable.five_clubs
+                "6" -> R.drawable.six_clubs
+                "7" -> R.drawable.seven_clubs
+                "8" -> R.drawable.eight_clubs
+                "9" -> R.drawable.nine_clubs
+                "10" -> R.drawable.ten_clubs
+                "J" -> R.drawable.j_clubs
+                "Q" -> R.drawable.q_clubs
+                "K" -> R.drawable.k_clubs
+                "A" -> R.drawable.a_clubs
+                else -> R.drawable.reverse1
+            }
+        }
+        "spades" -> {
+            when (this.value) {
+                "2" -> R.drawable.two_spades
+                "3" -> R.drawable.three_spades
+                "4" -> R.drawable.four_spades
+                "5" -> R.drawable.five_spades
+                "6" -> R.drawable.six_spades
+                "7" -> R.drawable.seven_spades
+                "8" -> R.drawable.eight_spades
+                "9" -> R.drawable.nine_spades
+                "10" -> R.drawable.ten_spades
+                "J" -> R.drawable.j_spades
+                "Q" -> R.drawable.q_spades
+                "K" -> R.drawable.k_spades
+                "A" -> R.drawable.a_spades
+                else -> R.drawable.reverse1
+            }
+        }
+        "hearts" -> {
+            when (this.value) {
+                "2" -> R.drawable.two_hearts
+                "3" -> R.drawable.three_hearts
+                "4" -> R.drawable.four_hearts
+                "5" -> R.drawable.five_hearts
+                "6" -> R.drawable.six_hearts
+                "7" -> R.drawable.seven_hearts
+                "8" -> R.drawable.eight_hearts
+                "9" -> R.drawable.nine_hearts
+                "10" -> R.drawable.ten_hearts
+                "J" -> R.drawable.j_hearts
+                "Q" -> R.drawable.q_hearts
+                "K" -> R.drawable.k_hearts
+                "A" -> R.drawable.a_hearts
+                else -> R.drawable.reverse1
+            }
+        }
+        else -> R.drawable.reverse1
+    }
+}
 fun Card.compareWith(card: Card): Int {
     // 0 IF EQUAL, 1 IF GREATER, -1 IF LOWER, 2 IF NONE
 
