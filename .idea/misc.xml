@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/parra/AndroidStudioProjects/WarOfSuits/app/src/main/res/layout/fragment_game.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.5765625" />
         <entry key="app/src/main/res/layout/fragment_game.xml" value="0.335" />
       </map>

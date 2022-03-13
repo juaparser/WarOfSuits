@@ -30,14 +30,7 @@ class MainActivity : AppCompatActivity() {
          * Estableciendo la navegación entre fragmentos
          */
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.gameFragment,
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
 }
