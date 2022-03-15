@@ -1,5 +1,7 @@
 package es.juaparser.warofsuits
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -12,8 +14,26 @@ import es.juaparser.warofsuits.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 
+/**
+ * GameFragment: Fragmento con toda la información del juego.
+ */
 
 class GameFragment : Fragment(R.layout.fragment_game) {
+
+    /**
+     * Explicación variables:
+     *
+     * currentDeck: Copia del listado original
+     * player1 and player2: Jugadores de la partida, donde se matendrá la información actualizada
+     *                      de las cartas de cada jugador.
+     *
+     * playableCards: LiveData para detectar cuando ambos jugadores han jugado su carta.
+     *
+     * cardsPlayed: Contador con las cartas jugadas en la partida. Se utiliza para detectar
+     *                  cuando se acaba la misma.
+     *
+     * textDiscardCount y textDeckCount: Textos para ir mostrando las cartas que tiene cada jugador.
+     */
 
     var currentDeck = deck.toMutableList()
     lateinit var player1: Player
@@ -24,12 +44,43 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     val textDiscardCount = "Discard count: "
     val textDeckCount = "Deck count: "
 
+
+    /**
+     * onViewCreated: Método principal en el que está toda la lógica del juego.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentGameBinding.bind(view)
 
+        /**
+         * Llamada al método createGame para iniciar el juego.
+         */
         createGame(binding)
+
+
+        /**
+         * Observer para comprobar cuando ambos jugadores hayan jugado una carta. Es decir,
+         * se ejecutará el contenido cuando el tamaño de la lista sea 2.
+         *
+         * En primer lugar se realiza la comparación por valor, y en caso de ser iguales, por palo.
+         *
+         * Teniendo la carta con mayor valor, se identifica al usuario cuya carta ganadora sea la suya
+         * y se indica quién ha ganado la ronda.
+         *
+         * Para dar un efecto entre ronda y otra, este indicador se muestra durante 3 segundos, de forma
+         * que al acabar de la sensación que se ha limpiado la mesa para la siguiente ronda.
+         *
+         * Para ello, al jugador ganador se le añaden ambas cartas a su pila de descarte y se pone a
+         * null su valor de carta en juego.
+         *
+         * En el caso de que sea la última ronda, tras indicar quién ha ganado en la misma, la
+         * pantalla se indica el fin de la partida y quién de los dos
+         * jugadores ha ganado.
+         *
+         * Se ha puesto el fondo translúcido para que ambos jugadores puedan comprobar los resultados
+         * finales, así como un botón por si quieren reiniciar la partida.
+         */
 
         playableCards.observe(viewLifecycleOwner) {
             if(it.size == 2) {
@@ -83,6 +134,11 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         }
 
 
+        /**
+         * Se llama a binding.apply para indicar a la vista como debe comportarse cuando se pulsa
+         * en los distintos botones o imágenes.
+         */
+
         binding.apply {
                 start.setOnClickListener {
                         groupOverlayStart.visibility = View.GONE
@@ -90,11 +146,28 @@ class GameFragment : Fragment(R.layout.fragment_game) {
                     tvPlayer2Counter.visibility = View.VISIBLE
                     tvPlayer2Discard.visibility = View.VISIBLE
                     tvPlayer1Discard.visibility = View.VISIBLE
+                    info.visibility = View.VISIBLE
                 }
 
             restart.setOnClickListener {
                 groupOverlayRestart.visibility = View.GONE
                 createGame(this)
+            }
+
+            info.setOnClickListener {
+                val dialog = AlertDialog.Builder(requireContext())
+
+                dialog.setTitle("Suits preference")
+                var suitString = ""
+
+                for (s in suits) {
+                    suitString += (suits.indexOf(s)+1).toString() + ". $s \n"
+                }
+                dialog.setMessage("Order of suits by value : \n\n" + suitString)
+
+                dialog.setPositiveButton("Ok", DialogInterface.OnClickListener { _, _ ->  })
+
+                dialog.show()
             }
 
             tvPlayer1.text = player1.name
@@ -104,6 +177,13 @@ class GameFragment : Fragment(R.layout.fragment_game) {
             discardDeckPlayer2.visibility = if(player2.discardDeck.isNotEmpty()) View.VISIBLE else View.INVISIBLE
             deckPlayer1.visibility = if(player1.deck.isNotEmpty()) View.VISIBLE else View.INVISIBLE
             deckPlayer2.visibility = if(player2.deck.isNotEmpty()) View.VISIBLE else View.INVISIBLE
+
+
+            /**
+             * Al pulsar cada jugador en su deck, se "saca" la primera carta de este y se muestra al usuario.
+             * Esta carta se indica como la actual en juego para el jugador y se añade a la lista de cartas en
+             * juego para su posterior prcesado.
+             */
 
             deckPlayer1.setOnClickListener {
                 Log.d("JPS", "DECKPLAYER1 CLICK " + player1.playableCard + " y " + player1.deck.size)
@@ -146,6 +226,13 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     }
 
+
+    /**
+     * createGame(binding): Función para iniciar o reiniciar el juego.
+     *
+     * Restaura el valor de las variables principales usadas en el juego, y reinicia las cartas
+     * y los contadores de los jugadores así como los elementos de la vista.
+     */
     fun createGame(binding: FragmentGameBinding) {
         currentDeck.clear()
         playableCards.value?.clear()

@@ -1,11 +1,9 @@
 package es.juaparser.warofsuits.model
-/*
-* Modelo issue, almacenará la información de todos los issues del tablero kanban asociado a un repo
-*   title: String con el título del issue
-*   date: Date con la fecha de creación del issue
-*   number: Integer con el identificador del issue
-*   comments: Número de comentarios en el issue
-*   type: Enumerado BoardState para identificar a cual columna del tablero corresponde el issue
+
+/**
+* Modelo card, almacenará la información de cada tarjeta del deck
+*   value: String con el valor de la carta, tanto numérico como los valores alfabéticos
+*   suit: String con el valor del palo de la carta.
 * */
 
 data class Card(

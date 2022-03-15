@@ -18,6 +18,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        /**
+         * Estableciendo binding con la vista
+         */
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -25,11 +28,6 @@ class MainActivity : AppCompatActivity() {
          * Desactivando modo noche para tener un único tema
          */
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
-        /**
-         * Estableciendo la navegación entre fragmentos
-         */
-
 
     }
 

@@ -3,11 +3,27 @@ package es.juaparser.warofsuits
 import android.util.Log
 import es.juaparser.warofsuits.model.Card
 
+/**
+ * Se definen las principales colecciones que guardaran la información de la partida.
+ *
+ * suits: Listado con los palos existentes. Esta lista se barajará al inicio de cada partida para
+ *          que la prioridad de cada palo sea distinta en cada partida.
+ *
+ * top: Listado auxiliar identificado los valores alfabéticos de las cartas.
+ *
+ * deck: Listado que contendrá la baraja completa del juego, la cual se genera y se baraja al inicio
+ *      de cada partida.
+ */
+
     val suits = mutableListOf("diamonds", "clubs", "hearts", "spades")
     val top = mutableListOf("J", "Q", "K", "A")
 
     val deck = mutableListOf<Card>()
 
+
+/**
+ * generateDeck(): Función para generar una nueva baraja al inicio de cada partida (nueva o reiniciar)
+ */
     fun generateDeck() {
         for(s in suits) {
             for(i in 2..10) {
@@ -21,10 +37,20 @@ import es.juaparser.warofsuits.model.Card
     }
 
 
+/**
+ * compareSuit(card): Función para comparar por palos si el valor de las cartas son iguales.
+ *                  Esta comparación vendra dada por el orden de los palos en la lista 'suits'.
+ */
 fun Card.compareSuit(card: Card): Boolean {
     return suits.indexOf(this.suit) < suits.indexOf(card.suit)
 }
 
+/**
+ * getDrawable(): Función para obtener el identificador de la imágen que corresponde a cada carta.
+ *
+ *  OPCIÓN A MEJORA: En vez de hacer uno a uno la asociación, dar un nombre adecado a cada imagen
+ *                   y descomponer su nombre para obtenerlo dinámicamente.
+ */
 fun Card.getDrawable(): Int {
     return when (this.suit) {
         "diamonds" -> {
@@ -102,6 +128,18 @@ fun Card.getDrawable(): Int {
         else -> R.drawable.reverse1
     }
 }
+
+
+/**
+ * compareWith(card): Función para comparar el valores entre dos cartas.
+ *      El resultado será 0 si son iguales, 1 si la primera es mayor, -1 si menor y 2 en otro caso.
+ *
+ *      Para ello se intenta convertir el valor de cada carta a un número real, y se identifica cada
+ *      caso comparandolos como Int.
+ *
+ *      En caso de que ambos no sean dígitos, se hace una comparación por cada valor alfabético respecto
+ *      a los otros posibles.
+ */
 fun Card.compareWith(card: Card): Int {
     // 0 IF EQUAL, 1 IF GREATER, -1 IF LOWER, 2 IF NONE
 

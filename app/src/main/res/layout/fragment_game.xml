@@ -257,6 +257,18 @@
         app:layout_constraintBottom_toTopOf="@id/start"
         android:text="@string/how_to_play"/>
 
+    <ImageView
+        android:id="@+id/info"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_info"/>
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_overlay_start"
         android:layout_width="wrap_content"
